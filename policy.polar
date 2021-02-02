@@ -1,2 +1,1 @@
-hello("world");
-hello("steve");
+# TODO: Add some rules!
