@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/osohq/go-oso"
+	"github.com/osohq/go-oso/interfaces"
 )
 
 type User string
@@ -16,10 +17,21 @@ func (u User) EndsWith(pattern string) bool {
 	return strings.HasSuffix(string(u), pattern)
 }
 
+func (u User) Equal(other interfaces.Comparer) bool {
+	if v, ok := other.(User); ok {
+		return u == v
+	} else {
+		return false
+	}
+}
+func (u User) Lt(other interfaces.Comparer) bool {
+	return false
+}
+
 type Expense struct {
 	Amount      int
 	Description string
-	SubmittedBy string
+	SubmittedBy User
 }
 
 type App struct {
@@ -71,13 +83,13 @@ func main() {
 
 	expenses := make(map[int]Expense)
 	expenses[1] = Expense{
-		Amount: 500, Description: "coffee", SubmittedBy: "alice@example.com",
+		Amount: 500, Description: "coffee", SubmittedBy: User("alice@example.com"),
 	}
 	expenses[2] = Expense{
-		Amount: 5000, Description: "software", SubmittedBy: "alice@example.com",
+		Amount: 5000, Description: "software", SubmittedBy: User("alice@example.com"),
 	}
 	expenses[3] = Expense{
-		Amount: 50000, Description: "flight", SubmittedBy: "bhavik@example.com",
+		Amount: 50000, Description: "flight", SubmittedBy: User("bhavik@example.com"),
 	}
 	app := App{expenses: expenses, oso: o}
 
