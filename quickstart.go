@@ -10,10 +10,10 @@ import (
 	"github.com/osohq/go-oso"
 )
 
-type Lib struct{}
+type User string
 
-func (Lib) HasSuffix(x string, y string) bool {
-	return strings.HasSuffix(x, y)
+func (u User) EndsWith(pattern string) bool {
+	return strings.HasSuffix(string(u), pattern)
 }
 
 type Expense struct {
@@ -47,7 +47,7 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if ok {
 			actor := r.Header.Get("user")
 			action := r.Method
-			allowed, ok := a.oso.IsAllowed(actor, action, expense)
+			allowed, ok := a.oso.IsAllowed(User(actor), action, expense)
 			if ok == nil && allowed {
 				fmt.Fprintf(w, "Expense{%v}", expense)
 			} else {
@@ -61,10 +61,8 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	o, _ := oso.NewOso()
-	lib := Lib{}
-	o.RegisterClass(reflect.TypeOf(lib))
-	o.RegisterConstant(lib, "Lib")
 	o.RegisterClass(reflect.TypeOf(Expense{}))
+	o.RegisterClass(reflect.TypeOf(User("")))
 	o.LoadFile("policy.polar")
 	results, _ := o.QueryStr("hello(x)")
 	for result := range results {
@@ -83,6 +81,7 @@ func main() {
 	}
 	app := App{expenses: expenses, oso: o}
 
+	fmt.Println("server running on port 5050")
 	http.Handle("/", &app)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":5050", nil)
 }
