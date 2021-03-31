@@ -73,8 +73,8 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	o, _ := oso.NewOso()
-	o.RegisterClass(reflect.TypeOf(Expense{}))
-	o.RegisterClass(reflect.TypeOf(User("")))
+	o.RegisterClass(reflect.TypeOf(Expense{}), nil)
+	o.RegisterClass(reflect.TypeOf(User("")), nil)
 	o.LoadFile("policy.polar")
 	results, _ := o.QueryStr("hello(x)")
 	for result := range results {
