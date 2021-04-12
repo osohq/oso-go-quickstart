@@ -75,7 +75,7 @@ func main() {
 	o, _ := oso.NewOso()
 	o.RegisterClass(reflect.TypeOf(Expense{}), nil)
 	o.RegisterClass(reflect.TypeOf(User("")), nil)
-	o.LoadFile("policy.polar")
+	o.LoadFile("expenses.polar")
 	results, _ := o.QueryStr("hello(x)")
 	for result := range results {
 		fmt.Println("Hello,", result["x"])
