@@ -76,10 +76,6 @@ func main() {
 	o.RegisterClass(reflect.TypeOf(Expense{}), nil)
 	o.RegisterClass(reflect.TypeOf(User("")), nil)
 	o.LoadFile("expenses.polar")
-	results, _ := o.QueryStr("hello(x)")
-	for result := range results {
-		fmt.Println("Hello,", result["x"])
-	}
 
 	expenses := make(map[int]Expense)
 	expenses[1] = Expense{
