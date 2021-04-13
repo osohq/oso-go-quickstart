@@ -41,12 +41,12 @@ type App struct {
 
 func unauthorized(w http.ResponseWriter) {
 	w.WriteHeader(http.StatusUnauthorized)
-	fmt.Fprintf(w, "Not Authorized!")
+	fmt.Fprintf(w, "Not Authorized!\n")
 }
 
 func notFound(w http.ResponseWriter) {
 	w.WriteHeader(http.StatusNotFound)
-	fmt.Fprintf(w, "Not Found!")
+	fmt.Fprintf(w, "Not Found!\n")
 }
 
 func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +61,7 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			action := r.Method
 			allowed, ok := a.oso.IsAllowed(User(actor), action, expense)
 			if ok == nil && allowed {
-				fmt.Fprintf(w, "Expense{%v}", expense)
+				fmt.Fprintf(w, "Expense{%v}\n", expense)
 			} else {
 				unauthorized(w)
 			}
