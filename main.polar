@@ -1,5 +1,6 @@
 # TODO: update for main
-# actor User {}
+
+actor User {}
 
 resource Repository {
 	permissions = ["read", "push", "delete"];
