@@ -17,14 +17,8 @@ func main() {
 		return
 	}
 
-	if err := oso.RegisterClass(reflect.TypeOf(Repository{}), nil); err != nil {
-		fmt.Printf("Failed to start: %s", err)
-		return
-	}
-	if err := oso.RegisterClass(reflect.TypeOf(User{}), nil); err != nil {
-		fmt.Printf("Failed to start: %s", err)
-		return
-	}
+	oso.RegisterClass(reflect.TypeOf(Repository{}), nil)
+	oso.RegisterClass(reflect.TypeOf(User{}), nil)
 	if err := oso.LoadFile("main.polar"); err != nil {
 		fmt.Printf("Failed to start: %s", err)
 		return
@@ -35,8 +29,8 @@ func main() {
 		if err != nil {
 			return c.SendStatus(400)
 		}
-		repository := 
-		allowed, err := oso.IsAllowed(GetCurrentUser(), "read", GetRepositoryById(repoId))
+		repository := GetRepositoryById(repoId)
+		allowed, err := oso.IsAllowed(GetCurrentUser(), "read", repository)
 		if err == nil && allowed {
 			return c.Status(200).SendString(fmt.Sprintf("<h1>A Repo</h1><p>Welcome to repo %s</p>", repository.Name))
 		} else {
