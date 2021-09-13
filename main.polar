@@ -1,3 +1,6 @@
+allow(actor, action, resource) if
+  has_permission(actor, action, resource);
+
 actor User {}
 
 resource Repository {
@@ -12,9 +15,7 @@ resource Repository {
 	"contributor" if "maintainer";
 }
 
-has_role(user: User, role_name: String, repository: Repository) if
+has_role(user: User, roleName: String, repository: Repository) if
   role in user.Roles and
-  role matches { Role: role_name, RepoId: repository.Id };
-
-allow(actor, action, resource) if
-  has_permission(actor, action, resource);
+  role.Role = roleName and
+  role.RepoId = repository.Id;

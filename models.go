@@ -1,16 +1,19 @@
 package main
 
 type Repository struct {
-	Id   int
-	Name string
+	Id       int
+	Name     string
+	IsPublic bool
 }
 
-var reposDb = []Repository{
-	{Id: 0, Name: "gmail"}, {Id: 1, Name: "react"}, {Id: 2, Name: "oso"},
+var reposDb = map[string]Repository{
+	"gmail": {Id: 0, Name: "gmail"},
+	"react": {Id: 1, Name: "react", IsPublic: true},
+	"oso":   {Id: 2, Name: "oso"},
 }
 
-func GetRepositoryById(id int) Repository {
-	return reposDb[id]
+func GetRepositoryByName(name string) Repository {
+	return reposDb[name]
 }
 
 type RepositoryRole struct {
@@ -23,21 +26,9 @@ type User struct {
 }
 
 var usersDb = map[string]User{
-	"larry": {
-		Roles: []RepositoryRole{
-			{Role: "admin", RepoId: 0},
-		},
-	},
-	"anne": {
-		Roles: []RepositoryRole{
-			{Role: "maintainer", RepoId: 1},
-		},
-	},
-	"graham": {
-		Roles: []RepositoryRole{
-			{Role: "contributor", RepoId: 2},
-		},
-	},
+	"larry":  {Roles: []RepositoryRole{{Role: "admin", RepoId: 0}}},
+	"anne":   {Roles: []RepositoryRole{{Role: "maintainer", RepoId: 1}}},
+	"graham": {Roles: []RepositoryRole{{Role: "contributor", RepoId: 2}}},
 }
 
 func GetCurrentUser() User {
