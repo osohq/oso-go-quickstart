@@ -1,5 +1,3 @@
-# TODO: update for main
-
 actor User {}
 
 resource Repository {

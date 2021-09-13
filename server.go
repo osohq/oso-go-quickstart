@@ -19,7 +19,7 @@ func main() {
 
 	oso.RegisterClass(reflect.TypeOf(Repository{}), nil)
 	oso.RegisterClass(reflect.TypeOf(User{}), nil)
-	if err := oso.LoadFile("main.polar"); err != nil {
+	if err := oso.LoadFiles([]string{"main.polar"}); err != nil {
 		fmt.Printf("Failed to start: %s", err)
 		return
 	}
