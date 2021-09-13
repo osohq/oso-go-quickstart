@@ -1,4 +1,4 @@
-# oso Go Quickstart
+# Oso Go Quickstart
 
 Follow along [here](https://docs.osohq.com/go/getting-started/quickstart.html).
 
