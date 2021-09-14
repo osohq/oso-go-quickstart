@@ -31,8 +31,7 @@ func main() {
 		if err == nil {
 			return c.Status(200).SendString(fmt.Sprintf("<h1>A Repo</h1><p>Welcome to repo %s</p>", repository.Name))
 		} else {
-			return c.Status(404).SendString("<h1>Whoops!</h1><p>That repo was not found</p>")
-
+			return c.Status(404).SendString(fmt.Sprintf("<h1>Whoops!</h1><p>Repo named %s was not found</p>", repoName))
 		}
 	})
 	if err := app.Listen(":5000"); err != nil {
