@@ -1,6 +1,6 @@
 module github.com/osohq/oso-go-quickstart
 
-go 1.12.7
+go 1.12
 
 require (
 	github.com/andybalholm/brotli v1.0.3 // indirect
