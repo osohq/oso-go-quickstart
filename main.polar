@@ -1,4 +1,5 @@
 allow(actor, action, resource) if
+  actor.make_it_break() and
   has_permission(actor, action, resource);
 
 actor User {}
