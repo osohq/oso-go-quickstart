@@ -7,17 +7,13 @@ type Repository struct {
 }
 
 var reposDb = map[string]Repository{
-	"gmail": {Id: 0, Name: "gmail"},
-	"react": {Id: 1, Name: "react", IsPublic: true},
-	"oso":   {Id: 2, Name: "oso"},
+	"gmail": {Id: 1, Name: "gmail"},
+	"react": {Id: 2, Name: "react", IsPublic: true},
+	"oso":   {Id: 3, Name: "oso"},
 }
 
-func GetRepositoryByName(name string) (Repository, bool) {
-	if repo, ok := reposDb[name]; ok {
-		return repo, true
-	}
-
-	return Repository{}, false
+func GetRepositoryByName(name string) Repository {
+	return reposDb[name]
 }
 
 type RepositoryRole struct {
@@ -30,9 +26,9 @@ type User struct {
 }
 
 var usersDb = map[string]User{
-	"larry":  {Roles: []RepositoryRole{{Role: "admin", RepoId: 0}}},
-	"anne":   {Roles: []RepositoryRole{{Role: "maintainer", RepoId: 1}}},
-	"graham": {Roles: []RepositoryRole{{Role: "contributor", RepoId: 2}}},
+	"larry":  {Roles: []RepositoryRole{{Role: "admin", RepoId: 1}}},
+	"anne":   {Roles: []RepositoryRole{{Role: "maintainer", RepoId: 2}}},
+	"graham": {Roles: []RepositoryRole{{Role: "contributor", RepoId: 3}}},
 }
 
 func GetCurrentUser() User {
