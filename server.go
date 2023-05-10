@@ -30,9 +30,9 @@ func main() {
 		err := oso.Authorize(GetCurrentUser(), "read", repository)
 		if err == nil {
 			return c.Status(200).SendString(fmt.Sprintf("<h1>A Repo</h1><p>Welcome to repo %s</p>\n", repository.Name))
-		} else {
-			return c.Status(404).SendString(fmt.Sprintf("<h1>Whoops!</h1><p>Repo named %s was not found</p>\n", repoName))
 		}
+
+		return c.Status(404).SendString(fmt.Sprintf("<h1>Whoops!</h1><p>Repo named %s was not found</p>\n", repoName))
 	})
 	if err := app.Listen(":5000"); err != nil {
 		fmt.Printf("Failed to start: %s", err)
