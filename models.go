@@ -12,8 +12,12 @@ var reposDb = map[string]Repository{
 	"oso":   {Id: 2, Name: "oso"},
 }
 
-func GetRepositoryByName(name string) Repository {
-	return reposDb[name]
+func GetRepositoryByName(name string) (Repository, bool) {
+	if repo, ok := reposDb[name]; ok {
+		return repo, true
+	}
+
+	return Repository{}, false
 }
 
 type RepositoryRole struct {

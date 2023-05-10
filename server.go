@@ -26,7 +26,10 @@ func main() {
 	app.Get("/repo/:repoName", func(c *fiber.Ctx) error {
 		c.Set(fiber.HeaderContentType, fiber.MIMETextHTML)
 		repoName := c.Params("repoName")
-		repository := GetRepositoryByName(repoName)
+		repository, ok := GetRepositoryByName(repoName)
+		if !ok {
+			return c.Status(404).SendString(fmt.Sprintf("<h1>Whoops!</h1><p>Repo named %s was not found</p>\n", repoName))
+		}
 		err := oso.Authorize(GetCurrentUser(), "read", repository)
 		if err == nil {
 			return c.Status(200).SendString(fmt.Sprintf("<h1>A Repo</h1><p>Welcome to repo %s</p>\n", repository.Name))
